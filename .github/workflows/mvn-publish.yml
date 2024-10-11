@@ -1,15 +1,7 @@
 name: Publish package to GitHub Packages
 on:
-  workflow_dispatch:
-    inputs:
-      releaseVersion:
-        description: "Default version to use when preparing a release."
-        required: true
-        default: "X.Y.Z"
-      developmentVersion:
-        description: "Default version to use for new local working copy."
-        required: true
-        default: "X.Y.Z-SNAPSHOT"
+  release:
+    types: [ created ]
 jobs:
   publish:
     runs-on: ubuntu-latest
