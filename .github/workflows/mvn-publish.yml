@@ -25,6 +25,8 @@ jobs:
           cache: 'maven'
           overwrite-settings: true
           server-id: 'github'
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
       - name: Maven release package
         run: | 
           ./mvnw release:prepare release:perform \
@@ -32,9 +34,5 @@ jobs:
             -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
             -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
         env:
-          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Maven deploy package
-        run: ./mvnw deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAVEN_USERNAME: ${{ env.GITHUB_ACTOR }}
+          MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
