@@ -22,16 +22,23 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: 'maven'
+          overwrite-settings: true
+          server-id: 'github'
       - name: Configure Git user
         run: |
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
-          git config user.name $(git log -n 1 --pretty=format:%an)"
+          git config user.name "$(git log -n 1 --pretty=format:%an)"
       - name: Maven release package
-        run: ./mvnw --batch-mode release:prepare release:perform -B -s .maven_settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
+        run: | 
+          ./mvnw release:prepare release:perform \
+            -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
+            -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
+            -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
         env:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Maven deploy package
-        run: ./mvnw --batch-mode deploy
+        run: ./mvnw deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -28,6 +28,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
+        <project.scm.id>github</project.scm.id> <!-- Matches with the .maven_settings.xml/server id -->
     </properties>
 
     <dependencyManagement>
