@@ -22,10 +22,7 @@ jobs:
           server-password: MAVEN_PASSWORD
       - name: Maven release package
         run: | 
-          ./mvnw release:prepare release:perform \
-            -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
-            -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
-            -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
+          ./mvnw release:prepare release:perform -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
         env:
           MAVEN_USERNAME: ${{ env.GITHUB_ACTOR }}
           MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
