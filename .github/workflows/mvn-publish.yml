@@ -1,7 +1,7 @@
 name: Create Release and Publish Packages
 on:
-  release:
-    types: [ created ]
+  workflow_dispatch:
+      
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: 'main'
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-java@v3
         with:
           java-version: '21'
@@ -20,7 +20,7 @@ jobs:
       - name: Maven release package
         uses: qcastel/github-actions-maven-release@master
         with:
-          release-branch-name: 'main'
+          release-branch-name: ${{ github.ref_name }}
           access-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           JAVA_HOME: /usr/lib/jvm/java-21-openjdk/
