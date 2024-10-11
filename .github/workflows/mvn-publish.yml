@@ -22,6 +22,10 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: Configure Git user
+        run: |
+          git config user.email "$(git log -n 1 --pretty=format:%ae)"
+          git config user.name $(git log -n 1 --pretty=format:%an)"
       - name: Maven release package
         run: ./mvnw --batch-mode release:prepare release:perform -B -s .maven_settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
         env:
