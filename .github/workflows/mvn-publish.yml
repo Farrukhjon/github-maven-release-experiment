@@ -10,6 +10,8 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: 'main'
       - uses: actions/setup-java@v3
         with:
           java-version: '21'
@@ -18,7 +20,7 @@ jobs:
       - name: Maven release package
         uses: qcastel/github-actions-maven-release@master
         with:
-          release-branch-name: ${{ github.head_ref || github.ref_name }}
+          release-branch-name: 'main'
           access-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           JAVA_HOME: /usr/lib/jvm/java-21-openjdk/
