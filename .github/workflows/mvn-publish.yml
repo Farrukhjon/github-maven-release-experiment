@@ -13,6 +13,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.ref_name }}
+      - uses: fregante/setup-git-user@v2
       - uses: actions/setup-java@v3
         with:
           java-version: '21'
@@ -22,6 +23,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
       - name: Test settings.xml
-        run: cat /home/runner/.m2/settings.xml
+        run: |
+          cat /home/runner/.m2/settings.xml
+          git config --global user.email "you@example.com"
+          git config --global user.name ${GITHUB_ACTOR}
       - name: Maven release prepare and perform
         run: ./mvnw release:prepare release:perform -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
