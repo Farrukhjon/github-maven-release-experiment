@@ -21,9 +21,6 @@
             <id>github</id>
             <name>My GitHub Packages</name>
             <url>https://maven.pkg.github.com/Farrukhjon/github-maven-release-experiment</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </repository>
     </distributionManagement>
 
