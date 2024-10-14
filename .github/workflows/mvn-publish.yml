@@ -1,10 +1,14 @@
-name: Create Release and Publish Packages
+name: Maven Release Prepare & Release Perform
 on:
   workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      deployments: write
     steps:
       - uses: actions/checkout@v3
         with:
@@ -14,10 +18,10 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
-      - name: Maven release package
-        uses: qcastel/github-actions-maven-release@master
-        with:
-          release-branch-name: ${{ github.ref_name }}
-          access-token: ${{ secrets.GITHUB_TOKEN }}
         env:
-          JAVA_HOME: /usr/lib/jvm/java-21-openjdk/
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+      - name: Test settings.xml
+        run: cat settings.xml
+      - name: Maven release prepare and prepare
+        run: ./mvnw release:prepare release:perform -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
