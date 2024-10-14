@@ -4,7 +4,7 @@
 
     <groupId>io.github.farrukhjon.experiment.maven</groupId>
     <artifactId>github-maven-release-experiment</artifactId>
-    <version>1.1.3-SNAPSHOT</version>
+    <version>1.1.3</version>
 
     <name>github-maven-release-experiment</name>
     <url>https://farrukhjon.gihub.io</url>
@@ -13,7 +13,7 @@
         <connection>scm:git:${project.scm.url}</connection>
         <developerConnection>scm:git:${project.scm.url}</developerConnection>
         <url>https://github.com/farrukhjon/github-maven-release-experiment.git</url>
-        <tag>HEAD</tag>
+        <tag>v1.1.3</tag>
     </scm>
 
     <distributionManagement>
