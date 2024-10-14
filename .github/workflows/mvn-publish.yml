@@ -22,6 +22,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
       - name: Test settings.xml
-        run: ls -la
+        run: cat /home/runner/.m2/settings.xml
       - name: Maven release prepare and perform
         run: ./mvnw release:prepare release:perform -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
