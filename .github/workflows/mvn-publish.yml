@@ -23,5 +23,5 @@ jobs:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
       - name: Test settings.xml
         run: cat settings.xml
-      - name: Maven release prepare and prepare
+      - name: Maven release prepare and perform
         run: ./mvnw release:prepare release:perform -DreleaseCommitPrefix=${{ env.GITHUB_ACTOR }}
